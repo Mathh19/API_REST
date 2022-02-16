@@ -10,7 +10,7 @@ export default class User extends Model {
         validate: {
           len: {
             args: [3, 255],
-            msg: 'Campo nome deve ter 3 e 255 caracteres',
+            msg: 'Campo nome deve ter entre 3 e 255 caracteres',
           },
         },
       },
@@ -22,7 +22,7 @@ export default class User extends Model {
         },
         validate: {
           isEmail: {
-            msg: 'E-mail inválido.',
+            msg: 'Email inválido',
           },
         },
       },
@@ -45,7 +45,7 @@ export default class User extends Model {
     });
 
     this.addHook('beforeSave', async (user) => {
-      if (User.password) {
+      if (user.password) {
         user.password_hash = await bcryptjs.hash(user.password, 8);
       }
     });
